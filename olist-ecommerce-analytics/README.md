@@ -60,7 +60,3 @@ Built end-to-end in Power BI Desktop — data cleaning and transformation in Pow
 ## Dataset
 
 [Olist Brazilian E-Commerce Public Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) (Kaggle) — ~99,000 orders placed between 2016 and 2018, spanning order status, pricing, freight, payments, customer and seller location, product attributes, and review scores.
-
-## How to View
-
-Download the `.pbix` file in this folder and open it in [Power BI Desktop](https://powerbi.microsoft.com/desktop/) (free, Windows).
