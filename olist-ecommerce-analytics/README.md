@@ -1,61 +1,50 @@
 # Olist E-Commerce Analytics
 
-An end-to-end Power BI report analyzing ~99,000 orders from **Olist**, Brazil's largest department-store marketplace — covering revenue, sales trends, product categories, seller distribution, delivery operations, and customer satisfaction, with all financial values normalized to **USD**.
+A Power BI report analyzing ~99,000 orders from **Olist**, Brazil's largest department-store marketplace — covering revenue, sales trends, product categories, delivery operations, and customer satisfaction, with all financial values converted to **USD**.
+
+**[View the full report (PDF)](Olist-Report.pdf)**
 
 ---
 
 ## Overview
 
-Olist connects small businesses across Brazil to customers through a single marketplace. This report turns the platform's raw order, payment, and review data into a decision-ready dashboard that answers the questions an operator would actually ask: Where is revenue coming from? Which categories and sellers drive the business? And is delivery speed affecting customer satisfaction?
+Olist connects small businesses across Brazil to customers through a single marketplace. This report turns the platform's raw order, payment, and review data into a dashboard that answers the questions an operator would actually ask: Where is revenue coming from? Which categories and states drive the business? And is delivery speed affecting customer satisfaction?
 
-Built end-to-end in Power BI Desktop — data cleaning and transformation in Power Query, a star-schema data model, and a layer of DAX measures including time-intelligence and target-vs-actual tracking.
+Built in Power BI Desktop: data cleaning and transformation in Power Query, a relational data model, and DAX measures including time intelligence (a rolling 3-month average and a same-months prior-year comparison).
+
+**Scope:** Revenue figures cover delivered orders and count item prices only (shipping excluded), converted at a fixed 0.1916 USD per BRL. The data runs from September 2016 to August 2018, so 2016 and 2018 are partial years.
 
 ## Key Insights
 
-- **Scale & growth:** The platform delivered **$2.53M** in revenue across **~99,000 orders** (2016–2018) at an average order value of **$25.47**. Monthly revenue grew steadily, peaking near **$190K in November 2017** (Black Friday) and holding above $160K/month through 2018.
-- **Operational reliability:** **~97% of orders were successfully delivered** (96K of ~99K), with cancellations under 1% — a healthy fulfillment pipeline.
-- **Category concentration:** The top 3 categories — **health & beauty, watches & gifts, and bed/bath/table** — drove roughly **26%** of revenue, with a long tail of smaller categories behind them.
-- **Geographic concentration:** Demand is heavily skewed to the Southeast. **São Paulo state alone generated 38.3%** of revenue and the Southeast region (SP, RJ, MG, ES) **65.4%**. São Paulo also enjoys the lowest shipping cost (13.9% of revenue) and fastest delivery (8.7 days, vs ~29 days for far-northern states).
-- **Delivery drives satisfaction:** Review scores fall steadily as delivery times lengthen — **on-time orders averaged 4.29 stars versus 2.57 for late ones**. Overall satisfaction still held at **4.14**, beating the 4.0 target, but delivery speed is the clearest lever to protect it.
-- **Seller long tail:** Across ~3,000 sellers, the top performers each generate ~$36–43K while the smallest earn barely $1 — an extreme long tail in which **no single seller accounts for even 2% of revenue**.
+- **Scale & growth:** Delivered orders generated **$2.53M** in revenue across **~96,000 orders**, an average order value of **$26.26**. Monthly revenue peaked near **$190K in November 2017** (Black Friday), and January–August 2018 revenue was **141% higher** than the same months of 2017.
+- **Fulfillment:** **96,478 of 99,441 orders (97%)** reached delivered status, and only 625 (0.6%) were canceled.
+- **Category concentration:** **Health & beauty, watches & gifts, and bed/bath/table** lead revenue, ahead of a long tail of smaller categories.
+- **Geographic concentration:** **São Paulo alone generated $0.97M (38%)** of revenue, and the top five states (SP, RJ, MG, RS, PR) about three-quarters of it.
+- **Delivery & shipping:** São Paulo orders arrive in **8.7 days** on average, versus **29 days in Roraima** (12.5 platform-wide). Shipping costs follow the same pattern: **13.9% of revenue** in São Paulo versus **28.3%** in Roraima (16.6% overall).
+- **Customer satisfaction:** The average review score was **4.14** in 2018 (4.17 in 2017). By state, scores tend to drop as delivery times lengthen — São Paulo, the fastest state, has the highest score — though Amapá and Amazonas score well despite some of the slowest deliveries (26–27 days).
 
-## Dashboard Walkthrough
+## Report Pages
 
-**Executive Summary** — top-line KPIs against targets: revenue, order volume, average order value, and review score.
-![Executive Summary](Dashboard%20Screenshots/01-executive-summary.png.png)
-
-**Trends & Time-Series** — monthly revenue with a rolling 3-month average, showing steady growth and the November 2017 peak.
-![Trends and Time-Series](Dashboard%20Screenshots/02-trends.png.png)
-
-**Categorical Analysis** — revenue by product category (treemap) alongside review score and order cost by state.
-![Categorical Analysis](Dashboard%20Screenshots/03-categorical.png.png)
-
-**Seller Revenue Distribution** — top vs. bottom sellers, illustrating the marketplace's long tail.
-![Seller Revenue Distribution](Dashboard%20Screenshots/04-seller%20distribution.png.png)
-
-**Geo Analysis** — revenue distribution across Brazil, with shipping cost and delivery time broken out by state.
-![Geo Analysis](Dashboard%20Screenshots/05-geo.png.png)
-
-**Outliers** — delivery time vs. customer satisfaction, and shipping cost vs. product price, surfacing the relationships behind the headline numbers.
-![Outliers](Dashboard%20Screenshots/06-outliers.png.png)
-
-**State Performance Detail** — order lifecycle distribution and delivery performance drill-down by state.
-![State Performance Detail](Dashboard%20Screenshots/07-state%20performance.png.png)
+1. **Executive Summary** — average order value, 2018 revenue vs. the same months of 2017, average review score, and scope notes.
+2. **Trends & Time-Series** — monthly revenue with a rolling 3-month average.
+3. **Categorical Analysis** — review score and order value by state, top and bottom states by revenue, and revenue by product category.
+4. **Geo Analysis** — revenue, delivered orders, shipping cost as a share of revenue, and average delivery time by state.
+5. **Outliers** — delivery time vs. customer satisfaction by state, and shipping cost vs. product price.
+6. **State Performance Detail** — average delivery time, order status distribution, and a state-by-state breakdown of shipping cost.
 
 ## Tools & Techniques
 
 - **Power BI Desktop** — report design and data modeling
 - **Power Query** — data cleaning, type handling, BRL→USD conversion, splitting orders by status
-- **Star-schema data model** — fact tables (`order_items`, `order_payments`) joined to dimensions (`customers`, `sellers`, `products`, `geolocation`, `Date`)
-- **DAX** — time intelligence, rolling averages, and target-vs-actual measures
+- **Data model** — order, item, payment, customer, seller, product, and `Date` tables linked by relationships
+- **DAX** — revenue, order, delivery, and shipping measures, plus time intelligence
 
 ## Key Measures Built
 
-- **Total Revenue**, **Revenue Per Order**, **Revenue Growth Rate**
-- **Rolling 3-Month Revenue** and **Previous Year Revenue** (time intelligence)
-- **Revenue / Orders / Review-Score targets** with gauge tracking
-- **Cancellation Rate**, **Avg Delivery Days**, **Shipping % of Revenue**
-- **Avg Product Price**, **Avg Shipping Cost**
+- **Revenue** (delivered orders, item prices in USD), **Delivered Orders**, **Average Order Value**
+- **Rolling 3-Month Average Revenue** and **Revenue for the Same Months of the Prior Year** (time intelligence)
+- **Average Review Score**, **Average Delivery Days**, **Shipping % of Revenue**
+- **Average Product Price**, **Average Shipping Cost**
 
 ## Dataset
 
